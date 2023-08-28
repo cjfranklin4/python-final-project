@@ -46,7 +46,7 @@ def pokelookup():
         except:
             return False
 
-    #print("pokemon array", poke_array)
+    #print(poke_array)
 
 # search for berries
 def berrylookup():
@@ -85,23 +85,78 @@ def organize_data():
 
             #add type to dictionary
             poke["types_final"].append(poketype)
+    #print(poke_array)
+
 
     for berry in berries:
         berry["flavor_final"] = []
         for berry_flav in berry["flavor"]:
             if berry_flav['potency'] > 0:
-                print(berry_flav['flavor']['name'])
+                #print(berry_flav['flavor']['name'])
                 flavor = berry_flav['flavor']['name']
                 berry["flavor_final"].append(flavor)
 
+def poke_database(datatotrack):
+    conn = sqlite3.connect('pokemon.db')
+    try:
+        conn.execute('''CREATE TABLE IF NOT EXISTS POKEMON (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, IMAGE TEXT NOT NULL, WEIGHT INT NOT NULL, TYPE TEXT NOT NULL);''')
 
+ 
 
+        for data in datatotrack:
+            try:
+                #print(data.get("types_final"))
+                #print("join expression", ', '.join(data.get("types_final")))
+                conn.execute("INSERT INTO POKEMON (NAME, IMAGE, WEIGHT, TYPE) VALUES (?,?,?,?)",
+                             (data.get("name"), data.get("image"), data.get("weight"), ', '.join(data.get("types_final"))))
+                conn.commit()
+            except sqlite3.Error as e:
+                print(f"SQLite error: {e}")
 
+ 
+
+        print("Database operation done")
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
+        return False
+    finally:
+        conn.close()
+
+    return True
+
+def berry_database(datatotrack):
+    conn = sqlite3.connect('berries.db')
+    try:
+        conn.execute('''CREATE TABLE IF NOT EXISTS BERRIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, FLAVOR TEXT NOT NULL);''')
+
+        for data in datatotrack:
+            try:
+                #print(data.get("types_final"))
+                #print("join expression", ', '.join(data.get("flavor_final")))
+                conn.execute("INSERT INTO BERRIES (NAME, FLAVOR) VALUES (?,?)",
+                             (data.get("name"), ', '.join(data.get("flavor_final"))))
+                conn.commit()
+            except sqlite3.Error as e:
+                print(f"SQLite error: {e}")
+
+ 
+
+        print("Database operation done")
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
+        return False
+    finally:
+        conn.close()
+
+    return True
 
 def main():
     pokelookup()
     berrylookup()
     organize_data()
+    poke_database(poke_array)
+    berry_database(berries)
+    print("I WORK IN MAIN")
 
 
 if __name__ == "__main__":
