@@ -99,32 +99,63 @@ def organize_data():
 def poke_database(datatotrack):
     conn = sqlite3.connect('pokemon.db')
     try:
-        conn.execute('''CREATE TABLE IF NOT EXISTS POKEMON (ID INT PRIMARY KEY NOT NULL, NAME TEXT NOT NULL, IMAGE TEXT NOT NULL, WEIGHT INT NOT NULL, TYPE TEXT NOT NULL);''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS POKEMON (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, IMAGE TEXT NOT NULL, WEIGHT INT NOT NULL, TYPE TEXT NOT NULL);''')
 
-        # loop through the list of movies that was passed in
+ 
+
         for data in datatotrack:
-            print("I WORK IN DATA LOOP")
-            print('data',data)
-            # in the line below, the ? are examples of "bind vars"
-            # this is best practice, and prevents sql injection attacks
-            # never ever use f-strings or concatenate (+) to build your executions
-            conn.execute("INSERT INTO POKEMON (NAME, IMAGE, WEIGHT, TYPE) VALUES (?,?,?,?)",(data.get("name"), data.get("image"), data.get("weight"), data.get("type_final")))
-            print("I WORK AFTER EXECUTE")
-            conn.commit()
+            try:
+                #print(data.get("types_final"))
+                #print("join expression", ', '.join(data.get("types_final")))
+                conn.execute("INSERT INTO POKEMON (NAME, IMAGE, WEIGHT, TYPE) VALUES (?,?,?,?)",
+                             (data.get("name"), data.get("image"), data.get("weight"), ', '.join(data.get("types_final"))))
+                conn.commit()
+            except sqlite3.Error as e:
+                print(f"SQLite error: {e}")
+
+ 
 
         print("Database operation done")
-        conn.close()
-        return True
-    except:
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
         return False
+    finally:
+        conn.close()
 
+    return True
 
+def berry_database(datatotrack):
+    conn = sqlite3.connect('berries.db')
+    try:
+        conn.execute('''CREATE TABLE IF NOT EXISTS BERRIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, FLAVOR TEXT NOT NULL);''')
+
+        for data in datatotrack:
+            try:
+                #print(data.get("types_final"))
+                #print("join expression", ', '.join(data.get("flavor_final")))
+                conn.execute("INSERT INTO BERRIES (NAME, FLAVOR) VALUES (?,?)",
+                             (data.get("name"), ', '.join(data.get("flavor_final"))))
+                conn.commit()
+            except sqlite3.Error as e:
+                print(f"SQLite error: {e}")
+
+ 
+
+        print("Database operation done")
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
+        return False
+    finally:
+        conn.close()
+
+    return True
 
 def main():
     pokelookup()
     berrylookup()
     organize_data()
     poke_database(poke_array)
+    berry_database(berries)
     print("I WORK IN MAIN")
 
 
