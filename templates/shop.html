@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">-->
+        <title>Pokemon Pet Shop</title>
+    </head>
+
+    <body>
+        <div class="header">
+            <h1>Pokemon Pet Shop</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/shop">Shop</a>
+            </nav>
+        </div>
+
+        <div class="container">
+            <h2>Pokemon</h2>
+            <div class="row">
+                {% for pokemon in poke_list %}
+
+                <div class="item">
+                    <img src="{{pokemon['image']}}" alt="">
+                    <span class="poke_name">{{pokemon['name']}}</span>
+                    <div class="types">
+                        {% for type in pokemon['types'] %}
+                            <p>{{type}}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+            <p>This is a footer</p>
+        </div>
+    </body>
+</html>
