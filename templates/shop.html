@@ -17,6 +17,13 @@
             </nav>
         </div>
 
+        <div class="cart">
+            <h3>YOUR CART</h3>
+            {% for item in cart %}
+                {{item['name']}}
+            {% endfor %}
+        </div>
+
         <div class="container">
             <h2>Pokemon</h2>
             <div class="row">
@@ -28,7 +35,12 @@
                     <div class="types">
                         {{pokemon['type']}}
                     </div>
-                    <button>Add to cart</button>
+                    <form action="{{ url_for('shopping') }}" method="post">
+                        <input name="item_id" value="{{pokemon.id}}" hidden>
+                        <input name="item_name" value="{{pokemon.name}}" hidden>
+                        <input name="item_type" value="POKEMON" hidden>
+                        <button type="submit">Add to cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -43,7 +55,9 @@
                 <div class="item">
                     <span class="poke_name">{{berry['name']}}</span>
                     <div>Flavors: {{berry['flavor']}}</div>
-                    <button>Add to cart</button>
+
+                    <input name="item_type" value="{{berry.id}}" hidden>
+                    <button type="submit">Add to cart</button>
                 </div>
                 {% endfor %}
             </div>
@@ -53,5 +67,13 @@
         <div class="footer">
             <p>This is a footer</p>
         </div>
+
+        <script>
+            function myFunction() {
+              alert("Hello! I am an alert box!");
+            }
+
+            
+        </script>
     </body>
 </html>
