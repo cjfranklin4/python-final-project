@@ -110,7 +110,8 @@ def remove_from_cart(item_id):
 
 @app.route("/checkout")
 def checkout():
-    return render_template("checkout.html")
+    cart =  get_cart()
+    return render_template("checkout.html", cart=cart)
 
 @app.route("/Thankyou")
 def Thankyou():
