@@ -97,7 +97,7 @@ def organize_data():
                 berry["flavor_final"].append(flavor)
 
 def poke_database(datatotrack):
-    conn = sqlite3.connect('pokemon.db')
+    conn = sqlite3.connect('inventory.db')
     try:
         conn.execute('''CREATE TABLE IF NOT EXISTS POKEMON (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, IMAGE TEXT NOT NULL, WEIGHT INT NOT NULL, TYPE TEXT NOT NULL);''')
 
@@ -125,7 +125,7 @@ def poke_database(datatotrack):
     return True
 
 def berry_database(datatotrack):
-    conn = sqlite3.connect('berries.db')
+    conn = sqlite3.connect('inventory.db')
     try:
         conn.execute('''CREATE TABLE IF NOT EXISTS BERRIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, FLAVOR TEXT NOT NULL);''')
 
