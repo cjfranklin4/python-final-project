@@ -1,4 +1,6 @@
-{% include 'modules/header.html'%}
+{% with title="Shop" %}
+{% include "modules/header.html" %}
+{% endwith %}
         <div class="cart">
             <h3>YOUR CART</h3>
             {% for item in cart %}
