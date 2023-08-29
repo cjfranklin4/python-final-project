@@ -1,13 +1,29 @@
-{% with title="Reciept" %}
+{% with title="Receipt" %}
 {% include "modules/header.html" %}
 {% endwith %}
-    
-        <label for="Your Reciept">
-            <input type="text" id="Pokemon" name="Pokemon" value = "{{ name}}">
-    /* Need to put link  to pull information to fill reciept box with pokemon and berries */
-    /* Need to put hyper text link to return to home from this page or to shop 
+
+    <div class="thanks">
+        <h2>Thank you for your purchase!</h2>
+        <p>Your Pokemon and items can be found below. Thank you for shopping with Pokemon Pet Shop!</p>
+    </div>
+    <div class="receipt">
+        {% for item in receipt %}
+            {% if my_tuple|length == 3 %}
+            <div class="item">
+                <span class="poke_name">{{item[1]}}</span>
+                <span class="poke_name">{{item[2]}}</span>
+            </div>
+            {% else %}
+            <div class="item">
+                <span class="poke_name">{{item[1]}}</span>
+                <img src="{{item[2]}}" alt="{{item[1]}}">
+                <span class="poke_types">{{item[4]}}</span>
+                <span class="poke_weight">{{item[3]}}</span>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
     <div id="pokemonInfo">
-        {% if pokemon_info %}
             <h2>
             <p> Thank you for shopping with PokeStop, we hope to see you soon!</p>
             <p>Notice: PokeStop is not liable for any injuries incurred as a result of sold Pokemon!</p>

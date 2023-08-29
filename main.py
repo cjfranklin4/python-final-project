@@ -10,26 +10,24 @@ import sqlite3 as sql
 #database helper functions
 #Get items from the database helper functions
 def get_pokemon():
-    con = sql.connect("pokemon.db")
+    con = sql.connect("inventory.db")
     con.row_factory = sql.Row
     
     cur = con.cursor()
     cur.execute("SELECT * from POKEMON")     
     
     pokemon = cur.fetchall() 
-    #print("pokemon", pokemon)
     con.close()
     return pokemon
 
 def get_berries():
-    con = sql.connect("berries.db")
+    con = sql.connect("inventory.db")
     con.row_factory = sql.Row
     
     cur = con.cursor()
     cur.execute("SELECT * from BERRIES")     
     
     berries = cur.fetchall() 
-    #print("berries", berries)
     con.close()
     return berries
 
@@ -41,7 +39,6 @@ def get_cart():
     cur.execute("SELECT * from CART")     
     
     cart = cur.fetchall() 
-    #print("berries", berries)
     con.close()
     return cart
 
@@ -108,14 +105,57 @@ def remove_from_cart(item_id):
     cart = get_cart()
     return redirect(url_for('shopping', poke_array=poke_array, berries=berries, cart=cart))
 
-@app.route("/checkout")
+@app.route("/checkout", methods = ["POST","GET"])
 def checkout():
-    cart =  get_cart()
-    return render_template("checkout.html", cart=cart)
+    if request.method == "POST":
+        return redirect(url_for('Thankyou'))
+
+    elif request.method == "GET":
+        cart = get_cart()
+        return render_template("checkout.html", cart=cart)
 
 @app.route("/Thankyou")
 def Thankyou():
-    return render_template("Thankyou.html")
+    cart = get_cart()
+
+    conn = sql.connect('cart.db')
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT NAME, TABLE_NAME, ITEM_ID FROM CART')
+    rows = cursor.fetchall()
+
+    inventory = []
+    for row in rows:
+        item = {
+            'name': row[0],
+            'table_name': row[1],
+            'item_id': row[2]
+        }
+        inventory.append(item)
+    
+    cursor.execute('DELETE FROM CART')
+    conn.commit()
+    conn.close()
+
+    receipt = []
+    for item in inventory:
+        item_id=item['item_id']
+        table_name=item['table_name']
+
+        conn = sql.connect('inventory.db')
+        cursor = conn.cursor()
+
+        if table_name == 'POKEMON':
+            query = 'SELECT * FROM POKEMON WHERE ID = ?'
+        else:
+            query = 'SELECT * FROM BERRIES WHERE ID = ?'
+
+        cursor.execute(query, (item_id,))
+        rows = cursor.fetchone()
+        receipt.append(rows)
+        conn.close()
+
+    return render_template("Thankyou.html", receipt=receipt)
 
 if __name__ == "__main__":
     con = sql.connect('cart.db')
