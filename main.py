@@ -63,6 +63,16 @@ def shopping():
 def checkout():
     return render_template("checkout.html")
 
+@app.route("/Thankyou")
+    def Thankyou():
+    return render_template("Thankyou.html")
+
+@app.route("/receipt") 
+    def receipt
+    return render_template("receipt.html")
+
+
+
 
 if __name__ == "__main__":
    app.run(host="0.0.0.0", port=2225, debug=True)
