@@ -116,13 +116,6 @@ def checkout():
     def Thankyou():
     return render_template("Thankyou.html")
 
-@app.route("/receipt") 
-    def receipt
-    return render_template("receipt.html")
-
-
-
-
 if __name__ == "__main__":
     con = sql.connect('cart.db')
     print("Opened database successfully")
