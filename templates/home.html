@@ -1,33 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Landing Page</title>
-    <style>
-        /* Add any custom CSS styles here */
-        body {
-            background-image: url("{{ url_for('static', filename='images/background.jpg') }}");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            padding: 100px;
-        }
-        .pikachu-gif {
-            width: 300px;
-            height: 300px;
-        }
-    </style>
-</head>
-<body>
+{% with title="Home" %}
+{% include "modules/header.html" %}
+{% endwith %}
     <div class="container">
-        <img src="{{ url_for('static', filename='images/hello-pikachu.gif') }}" class="pikachu-gif" alt="Hello Pikachu">
+        <img src="https://media.tenor.com/hSL--HaaLEMAAAAC/hello-pikachu.gif" class="pikachu-gif" alt="Hello Pikachu">
         <h1>Welcome to the Pokemon Pet Shop</h1>
         <p>Your one-stop shop for all things Pokemon!</p>
         <a href="{{ url_for('shopping') }}" class="btn btn-primary">Start Shopping</a>
     </div>
+    {% include 'modules/footer.html'%}
 </body>
 </html>
 
