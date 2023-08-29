@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!--<link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">-->
-        <title>Pokemon Pet Shop</title>
-    </head>
+{% include 'modules/header.html'%}
+        <div class="cart">
+            <h3>YOUR CART</h3>
+            {% for item in cart %}
+            <div class="cart-item">
+                {{item['table_name']}}<br/>
+                {{item['name']}}
+                <form action="{{ url_for('remove_from_cart', item_id=item['id']) }}" method="post">
+                    <button type="submit">Remove</button>
+                </form>
+            </div>
+            {% endfor %}
 
-    <body>
-        <div class="header">
-            <h1>Pokemon Pet Shop</h1>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/shop">Shop</a>
-            </nav>
+            {% if cart %}
+            <a href="/checkout">Checkout</a>
+            {% endif %}
+
         </div>
 
         <div class="container">
@@ -28,7 +28,12 @@
                     <div class="types">
                         {{pokemon['type']}}
                     </div>
-                    <button>Add to cart</button>
+                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                        <input name="item_id" value="{{pokemon.id}}" hidden>
+                        <input name="item_name" value="{{pokemon.name}}" hidden>
+                        <input name="item_type" value="POKEMON" hidden>
+                        <button type="submit">Add to cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
@@ -43,15 +48,28 @@
                 <div class="item">
                     <span class="poke_name">{{berry['name']}}</span>
                     <div>Flavors: {{berry['flavor']}}</div>
-                    <button>Add to cart</button>
+
+                    <form action="{{ url_for('add_to_cart') }}" method="post">
+                        <input name="item_id" value="{{berry.id}}" hidden>
+                        <input name="item_name" value="{{berry.name}}" hidden>
+                        <input name="item_type" value="BERRIES" hidden>
+                        <button type="submit">Add to cart</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
         
         </div>
 
-        <div class="footer">
-            <p>This is a footer</p>
-        </div>
+        {% include 'modules/footer.html'%}
+
+        {%if err_msg %}
+        <script>
+            function full_cart() {
+                alert("Your cart is full!");
+            }
+            full_cart()
+        </script>
+        {% endif %}
     </body>
 </html>
