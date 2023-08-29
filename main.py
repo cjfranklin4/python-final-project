@@ -113,7 +113,7 @@ def checkout():
     return render_template("checkout.html")
 
 @app.route("/Thankyou")
-    def Thankyou():
+def Thankyou():
     return render_template("Thankyou.html")
 
 if __name__ == "__main__":
