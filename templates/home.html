@@ -1,11 +1,11 @@
 {% with title="Home" %}
 {% include "modules/header.html" %}
 {% endwith %}
-    <div class="container">
+    <div class="container-home">
         <img src="https://media.tenor.com/hSL--HaaLEMAAAAC/hello-pikachu.gif" class="pikachu-gif" alt="Hello Pikachu">
         <h1>Welcome to the Pokemon Pet Shop</h1>
-        <p>Your one-stop shop for all things Pokemon!</p>
-        <a href="{{ url_for('shopping') }}" class="btn btn-primary">Start Shopping</a>
+        <p>Browse our available pokemon and learn more about them. Add them to your cart, for more adoption details</p>
+        <a href="{{ url_for('shopping') }}" class="btn">Start Shopping</a>
     </div>
     {% include 'modules/footer.html'%}
 </body>

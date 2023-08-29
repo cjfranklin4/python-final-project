@@ -5,8 +5,8 @@
             <h3>YOUR CART</h3>
             {% for item in cart %}
             <div class="cart-item">
-                {{item['table_name']}}<br/>
-                {{item['name']}}
+                <p>{{item['table_name']}}</p>
+                <p>{{item['name']}}</p>
                 <form action="{{ url_for('remove_from_cart', item_id=item['id']) }}" method="post">
                     <button type="submit">Remove</button>
                 </form>
@@ -19,7 +19,7 @@
 
         </div>
 
-        <div class="container">
+        <div class="shop-container">
             <h2>Pokemon</h2>
             <div class="row">
                 {% for pokemon in poke_array %}
@@ -42,7 +42,7 @@
         
         </div>
         
-        <div class="container">
+        <div class="shop-container">
             <h2>Berries</h2>
             <div class="row">
                 {% for berry in berries %}

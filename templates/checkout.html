@@ -1,23 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Checkout Page</title>
-</head>
-<body>
-    <h1>Checkout Page</h1>
-
-    <h2>Select Pokemon:</h2>
-    <form method="POST" action="/checkout">
-        <div class="cart">
-            <h3>YOUR CART</h3>
-            {% for item in cart %}
-            <div class="cart-item">
-                {{item['table_name']}}<br/>
-                {{item['name']}}    
+{% with title="Checkout" %}
+{% include "modules/header.html" %}
+{% endwith %}
+    <div class="check-container">
+        <h2 class="checkout-title">Checkout</h2>
+        <form class="checkout" method="POST" action="/checkout">
+            <div class="cart">
+                <h3>YOUR CART</h3>
+                {% for item in cart %}
+                <div class="cart-item">
+                    <p>{{item['table_name']}}</p>
+                    <p>{{item['name']}}</p>  
+                </div>
+                {% endfor %}
+                <input type="submit" value="Checkout">
             </div>
-            {% endfor %}
-            <input type="submit" value="Checkout">
-        </div>
-    </form>
+        </form>
+    </div>
+    {% include 'modules/footer.html'%}
 </body>
 </html>

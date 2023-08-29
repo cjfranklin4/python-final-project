@@ -152,6 +152,7 @@ def Thankyou():
 
         cursor.execute(query, (item_id,))
         rows = cursor.fetchone()
+        print(rows)
         receipt.append(rows)
         conn.close()
 
