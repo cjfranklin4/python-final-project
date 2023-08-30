@@ -7,11 +7,11 @@ margin:0px;
 padding:0px;
 box-sizing: border-box;
   font-family: "Quicksand";
-  color: #333;
+  color: #112B41;
 }
 
 body {
-    background-color: antiquewhite;
+    background-color: white;
     position: relative;
     min-height: 100vh;
     display: flex;
@@ -30,7 +30,7 @@ header {
     justify-content: space-between;
     align-items: center;
     width:100%;
-    background-color: antiquewhite;
+    background-color: #B8DAF5;
     padding:15px;
 
 }
@@ -41,6 +41,9 @@ header .header-top{
 
 header nav{
     text-align: center;
+    display: flex;
+    align-items: center;
+    gap:15px;
 }
 
 header nav a{
@@ -57,19 +60,61 @@ header nav a:visited{
     text-transform: uppercase;
     font-size: 20px;
     color:black;
+    transition: all 0.15s ease;
 }
 
 header nav a:hover,header nav a:active, header nav a:focus{
-    color:#71a3bc;
+    color:#5C9DD6;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    transition: all 0.15s ease;
 }
 
-header nav a:first-of-type{
+/* header nav a:first-of-type{
     margin-right:10px;
+} */
+
+header.default body {
+    background-color: #5C9DD6;
 }
+
+header.shop{
+    margin-bottom: 30px;
+}
+
+/* header.default{
+    background-color: #5D9DD6;
+}
+
+header.default .header-top h1, header.default .header-top span{
+    color:white;
+}
+
+header.default nav a{
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+    color:white;
+}
+
+header.default nav a:visited{
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+    color:white;
+}
+
+header.default nav a:hover,header.default nav a:active, header.default nav a:focus{
+    color:#112B41;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+} */
 
 /*FOOTER*/
 footer{
-    background-color: #71a3bc;
+    background-color: #5D9DD6;
     text-align: center;
     padding: 15px;
     margin-top: auto;
@@ -99,7 +144,8 @@ div.container-home h1{
 
 div.container-home a.btn{
     padding:15px 20px;
-    background-color: aliceblue;
+    background-color: #DB5F56;
+    color:white;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
@@ -137,7 +183,7 @@ div.container-home a.btn{
 }
 
 .cart{
-    background-color: aliceblue;
+    background-color: #4B84C2;
     padding: 15px;
     margin-bottom: 20px;
     display: flex;
@@ -159,21 +205,131 @@ div.container-home a.btn{
     margin-top: 10px;
 }
 
+#shopping-cart .cart-item form button{
+    background-color:transparent;
+    color:#112B41;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 10px 0px;
+    border:none;
+    border-bottom: 2px solid #112B41;
+    transition: all 0.15s ease;
+}
+#shopping-cart .cart-item form button:hover, #shopping-cart .cart-item form button:active, #shopping-cart .cart-item form button:focus{
+    color:#DB5F56;
+    border-bottom: 2px solid #DB5F56;
+    transition: all 0.15s ease;
+}
 
 .cart a{
     padding:15px 20px;
-    background-color:coral;
+    background-color: #DB5F56;
     color:white;
     text-align:center;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
     margin: 10px 0px;
-    width: 200px;
+    width: 100%;
+    display: block;
+    transition: all 0.15s ease;
 }
 
 .cart a:hover{
-    background-color:#71a3bc;
+    transition: all 0.15s ease;
+    background-color:#363B5C;
+}
+
+.cart h3{
+    color:white;
+}
+
+div.shop-container:first-of-type{
+    margin-top: 30px;
+}
+
+.shop-container form button[type="submit"]{
+    padding:15px 20px;
+    background-color:#DB5F56;
+    width:100%;
+    color:white;
+    text-align:center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 10px 0px;
+    border:none;
+    transition: all 0.15s ease;
+}
+
+.shop-container form button[type="submit"]:hover{
+    background-color:#5C9DD6;
+    transition: all 0.15s ease;
+}
+.shop-container .item img:hover{
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 1s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+#shopping-cart{
+    display: none;
+    opacity: 0;
+    width:100%;
+    max-width:500px;
+    position: fixed;
+    top: 95px;
+    right: 0;
+    transition: all 0.5s ease;
+}
+
+.active{
+    display: block !important;
+    opacity: 100% !important;
+}
+
+.cart-icon{
+    position: relative;
+}
+
+.cart-icon:hover #shopping-cart{
+    display: block;
+}
+
+.cart-icon img{
+    width: 60px;
+    height: auto;
+}
+
+.cart-icon .cart-status{
+    display: block;
+    background-color: red;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    height:30px;
+    width:30px;
+    border-radius: 50%;
+
+    position: absolute;
+    right: 0px;
+    bottom:0px;
 }
 
 /*CHECKOUT*/
@@ -203,7 +359,7 @@ form.checkout .cart-item p:first-of-type{
 
 input[type="submit"]{
     padding:15px 20px;
-    background-color:coral;
+    background-color:#DB5F56;
     color:white;
     text-align:center;
     text-decoration: none;
@@ -211,10 +367,12 @@ input[type="submit"]{
     font-weight: bold;
     margin: 10px 0px;
     border:none;
+    transition: all 0.15s ease;
 }
 
 input[type="submit"]:hover{
-    background-color:#71a3bc;
+    background-color:#112B41;
+    transition: all 0.15s ease;
 }
 
 /*THANK YOU*/
@@ -226,7 +384,7 @@ input[type="submit"]:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #71a3bc;
+    background-color: #4B84C2;
     padding:10px;
     border-radius: 10px;
 }

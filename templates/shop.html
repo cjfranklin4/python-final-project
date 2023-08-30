@@ -1,7 +1,7 @@
-{% with title="Shop" %}
-{% include "modules/header.html" %}
+{% with title="Shop",page_type="shop",show_cart="True"%}
+{% include "modules/header.html"%}
 {% endwith %}
-        <div class="cart">
+        <div class="cart" id="shopping-cart">
             <h3>YOUR CART</h3>
             {% for item in cart %}
             <div class="cart-item shop-page">

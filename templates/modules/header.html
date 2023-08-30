@@ -9,7 +9,7 @@
     </head>
 
     <body>
-        <header>
+        <header class="{{page_type}}">
             <div class="header-top">
                 <h1>Pokemon Pet Shop</h1>
                 <span>Your one-stop shop for Pokemon!</span>
@@ -17,5 +17,11 @@
             <nav>
                 <a href="/">Home</a>
                 <a href="/shop">Shop</a>
+                {% if show_cart=="True"%}
+                <div class="cart-icon" id="toggleCartButton">
+                    <img src="static/cart-icon.svg" alt="">
+                    <span class="cart-status">{{cart|length}}</span>
+                </div>
+                {%endif%}
             </nav>
         </header>

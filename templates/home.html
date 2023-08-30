@@ -1,10 +1,10 @@
-{% with title="Home" %}
+{% with title="Home",page_type="home-page" %}
 {% include "modules/header.html" %}
 {% endwith %}
     <div class="container-home">
         <img src="https://media.tenor.com/hSL--HaaLEMAAAAC/hello-pikachu.gif" class="pikachu-gif" alt="Hello Pikachu">
         <h1>Welcome to the Pokemon Pet Shop</h1>
-        <p>Browse our available pokemon and learn more about them. Add them to your cart, for more adoption details</p>
+        <p>Browse our available pokemon and learn more about them!</p>
         <a href="{{ url_for('shopping') }}" class="btn">Start Shopping</a>
     </div>
     {% include 'modules/footer.html'%}
