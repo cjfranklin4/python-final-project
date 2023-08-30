@@ -11,8 +11,8 @@ BERRIES_URL = "https://pokeapi.co/api/v2/berry"
 
 poke_id = []
 berry_id = []
-poke_array = []
-berries = []
+poke_array = [] #pokemon data list
+berries = [] #berries data list
 
 # search for pokemon
 def pokelookup():
@@ -35,6 +35,7 @@ def pokelookup():
             weight = data["weight"]
             types = data["types"]
 
+            #saves pokemon data into an dictionary and adds it into an list
             poke_array.append({
                 'name': name,
                 'image': image,
@@ -66,6 +67,7 @@ def berrylookup():
             name = data["name"]
             flavor = data["flavors"]
 
+            #saves berries data into an dictionary and adds it into an list
             berries.append({
                 'name': name,
                 'flavor': flavor
@@ -103,7 +105,7 @@ def poke_database(datatotrack):
 
  
 
-        for data in datatotrack:
+        for data in datatotrack: #gets data passed into it from the API data lists
             try:
                 #print(data.get("types_final"))
                 #print("join expression", ', '.join(data.get("types_final")))
@@ -129,7 +131,7 @@ def berry_database(datatotrack):
     try:
         conn.execute('''CREATE TABLE IF NOT EXISTS BERRIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT NOT NULL, FLAVOR TEXT NOT NULL);''')
 
-        for data in datatotrack:
+        for data in datatotrack:#gets data passed into it from the API data lists
             try:
                 #print(data.get("types_final"))
                 #print("join expression", ', '.join(data.get("flavor_final")))
