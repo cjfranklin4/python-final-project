@@ -79,7 +79,6 @@ def add_to_cart():
                 msg = "Record successfully added"
             else:
                 print("TOO MANY ITEMS IN CART")
-                err = "Too many items in cart"
                 msg = "error in insert operation"
     except:
         con.rollback() 

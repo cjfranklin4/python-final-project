@@ -4,7 +4,7 @@
         <div class="cart">
             <h3>YOUR CART</h3>
             {% for item in cart %}
-            <div class="cart-item">
+            <div class="cart-item shop-page">
                 <p>{{item['table_name']}}</p>
                 <p>{{item['name']}}</p>
                 <form action="{{ url_for('remove_from_cart', item_id=item['id']) }}" method="post">
@@ -30,11 +30,13 @@
                     <div class="types">
                         {{pokemon['type']}}
                     </div>
+                    {{err_msg}}
                     <form action="{{ url_for('add_to_cart') }}" method="post">
                         <input name="item_id" value="{{pokemon.id}}" hidden>
                         <input name="item_name" value="{{pokemon.name}}" hidden>
                         <input name="item_type" value="POKEMON" hidden>
-                        <button type="submit">Add to cart</button>
+
+                        <button type="submit" onClick="full_cart()">Add to cart</button>
                     </form>
                 </div>
                 {% endfor %}
@@ -55,7 +57,7 @@
                         <input name="item_id" value="{{berry.id}}" hidden>
                         <input name="item_name" value="{{berry.name}}" hidden>
                         <input name="item_type" value="BERRIES" hidden>
-                        <button type="submit">Add to cart</button>
+                        <button type="submit" onClick="full_cart()">Add to cart</button>
                     </form>
                 </div>
                 {% endfor %}
@@ -64,14 +66,6 @@
         </div>
 
         {% include 'modules/footer.html'%}
-
-        {%if err_msg %}
-        <script>
-            function full_cart() {
-                alert("Your cart is full!");
-            }
-            full_cart()
-        </script>
-        {% endif %}
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
     </body>
 </html>
