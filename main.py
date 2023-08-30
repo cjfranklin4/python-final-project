@@ -10,7 +10,7 @@ import sqlite3 as sql
 #database helper functions
 #Get items from the database helper functions
 def get_pokemon():
-    con = sql.connect("inventory.db")
+    con = sql.connect("/data/inventory.db")
     con.row_factory = sql.Row
     
     cur = con.cursor()
@@ -21,7 +21,7 @@ def get_pokemon():
     return pokemon
 
 def get_berries():
-    con = sql.connect("inventory.db")
+    con = sql.connect("/data/inventory.db")
     con.row_factory = sql.Row
     
     cur = con.cursor()
@@ -32,7 +32,7 @@ def get_berries():
     return berries
 
 def get_cart():
-    con = sql.connect("cart.db")
+    con = sql.connect("/data/cart.db")
     con.row_factory = sql.Row
     
     cur = con.cursor()
@@ -63,7 +63,7 @@ def add_to_cart():
     #NO DOUBLES IN CART (maybe add later)
     try: 
         # connect to sqliteDB
-        with sql.connect("cart.db") as con:
+        with sql.connect("/data/cart.db") as con:
             cur = con.cursor()
             cur.execute('SELECT * FROM CART;')
             cart_len = len(cur.fetchall())
@@ -93,7 +93,7 @@ def add_to_cart():
 
 @app.route('/remove_from_cart/<int:item_id>', methods=['POST'])
 def remove_from_cart(item_id):
-    conn = sql.connect('cart.db')
+    conn = sql.connect('/data/cart.db')
     cursor = conn.cursor()
     cursor.execute('DELETE FROM CART WHERE ID = ?', (item_id,))
     conn.commit()
@@ -117,7 +117,7 @@ def checkout():
 def Thankyou():
     cart = get_cart()
 
-    conn = sql.connect('cart.db')
+    conn = sql.connect('/data/cart.db')
     cursor = conn.cursor()
 
     cursor.execute('SELECT NAME, TABLE_NAME, ITEM_ID FROM CART')
@@ -141,7 +141,7 @@ def Thankyou():
         item_id=item['item_id']
         table_name=item['table_name']
 
-        conn = sql.connect('inventory.db')
+        conn = sql.connect('/data/inventory.db')
         cursor = conn.cursor()
 
         if table_name == 'POKEMON':
@@ -158,7 +158,7 @@ def Thankyou():
     return render_template("Thankyou.html", receipt=receipt)
 
 if __name__ == "__main__":
-    con = sql.connect('cart.db')
+    con = sql.connect('/data/cart.db')
     print("Opened database successfully")
     con.execute('CREATE TABLE IF NOT EXISTS CART (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, TABLE_NAME TEXT, ITEM_ID INT)')
     print("Table created successfully")

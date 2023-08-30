@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pokemon-pet-shop
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pokeshop
+  template:
+    metadata:
+      labels:
+        app: pokeshop
+    spec:
+      nodeName: node-1
+      initContainers:
+      - name: init-db
+        image: busybox
+        command: ['sh', '-c', 'if [ ! -f /mnt/cart.db ]; then touch /mnt/cart.db; fi']
+        volumeMounts:
+        - name: sqlite-storage
+          mountPath: /mnt
+      containers:
+      - name: petshop-pokemon-container
+        image: ghcr.io/cjfranklin4/python-final-project/pokeshop:1.0.0
+        volumeMounts:
+        - name: sqlite-storage
+          mountPath: /data/cart.db
+          subPath: cart.db
+      volumes:
+      - name: sqlite-storage
+        persistentVolumeClaim:
+          claimName: demo-pvc
